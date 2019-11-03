@@ -1,0 +1,47 @@
+.game__land {
+    background-size: cover;
+}
+
+.obj_grass {
+    background-color: green;
+    background-image: url("https://opengameart.org/sites/default/files/output_sample_1.png");
+}
+
+.obj_water {
+    background-color: cyan;
+    background-image: url("https://opengameart.org/sites/default/files/Untitled-2_2.jpg");
+}
+
+.obj_stone {
+    background-color: #282c34;
+    background-image: url("https://opengameart.org/sites/default/files/stone2.jpg");
+}
+
+.obj_dirt {
+    background-color: yellow;
+    background-image: url("https://opengameart.org/sites/default/files/dirt4.png");
+}
+
+.obj_stonepath {
+    background-color: grey;
+    background-image: url("https://opengameart.org/sites/default/files/textureStone_0.png");
+}
+
+.obj_brick {
+    background-color: orangered;
+    background-image: url("https://opengameart.org/sites/default/files/02tizetapav3.png.preview.jpg");
+}
+
+.obj_cleanstone {
+    background-color: #eee;
+    background-image: url("https://opengameart.org/sites/default/files/sf_cleanstone_floor.jpg");
+}
+
+.obj_tree {
+    background-color: lime;
+    background-image: url("https://opengameart.org/sites/default/files/LongLeaves_T.jpg");
+}
+
+.obj_cuttedtree {
+    background: url("https://opengameart.org/sites/default/files/cutted%20tree.png") 50px -25px, url("https://opengameart.org/sites/default/files/output_sample_1.png");
+}

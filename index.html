@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="lands.css">
+    <title>Lands</title>
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <li class="action" data-action="grass">Grass</li>
+            <li class="action" data-action="dirt">Dirt</li>
+            <li class="action" data-action="stone">Stone</li>
+            <li class="action" data-action="stonepath">Stone path</li>
+            <li class="action" data-action="cleanstone">Cleanstone</li>
+            <li class="action" data-action="brick">Brick</li>
+            <li class="action" data-action="water">Water</li>
+            <li class="action" data-action="tree">Tree</li>
+            <li class="action" data-action="cuttedtree">Cuttedtree</li>
+            
+        </ul>
+    </nav>
+    <header class="header">
+        <h1>The Lands</h1>
+    </header>
+    <main id="gamewrapper">
+
+    </main>
+</body>
+<script src="core.js"></script>
+<script>
+    generate("classic");
+    render("all");
+    listen("landsclick");
+    listen("actionclick");
+</script>
+</html>
