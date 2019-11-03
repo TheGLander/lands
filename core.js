@@ -13,7 +13,7 @@ var fields = [];
     function generate(type) {
 
         if(type == "blank") {
-
+            fields = [];
             for(i = 0; i < amount_y; i++) {
                 var fieldrow = [];
                 for(j = 0; j < amount_x; j++) {
@@ -31,7 +31,7 @@ var fields = [];
             }
 
         } else if (type == "classic") {
-
+            fields = [];
             for(i = 0; i < amount_y; i++) {
                 var fieldrow = [];
                 for(j = 0; j < amount_x; j++) {
@@ -56,11 +56,11 @@ var fields = [];
 
                 }
         
-                fields.push(fieldrow)
+                fields.push(fieldrow);
             }
 
         } else if (type == "experimental") {
-
+            fields = [];
             for(i = 0; i < amount_y; i++) {
                 var fieldrow = [];
                 for(j = 0; j < amount_x; j++) {
