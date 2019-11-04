@@ -45,8 +45,8 @@ body {
 }
 
 .game__land {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     transition: all .1s;
     background-image: url("https://art.pixilart.com/6d5f49bda3b5069.png");
     filter: opacity(1);
