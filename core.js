@@ -1,4 +1,4 @@
-var amount_x = 15
+var amount_x = 15;
 var amount_y = 15;
 var action = "tree";
 var lands = document.getElementsByClassName('game__land');
@@ -95,10 +95,10 @@ var fields = [];
 
                 for(jj = 0; jj < fields[ii].length; jj++) {
                     var field = document.createElement("div");
-                    field.dataset.x = fields[jj][ii].x;
-                    field.dataset.y = fields[jj][ii].y;
+                    field.dataset.x = fields[ii][jj].x;
+                    field.dataset.y = fields[ii][jj].y;
                     field.classList.add("game__land");
-                    field.classList.add("obj_" + fields[jj][ii].content);
+                    field.classList.add("obj_" + fields[ii][jj].content);
 
                     fieldrow.appendChild(field);
                 }
@@ -171,8 +171,4 @@ var fields = [];
                 });
             }
         }
-    }
-
-    function exportFields() {
-        return JSON.stringify(fields);
     }

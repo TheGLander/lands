@@ -38,6 +38,7 @@ body {
 .game__row {
     display: flex;
     flex-direction: column;
+    transition: all .2s;
 }
 
 .game__row:hover {
@@ -50,6 +51,8 @@ body {
     transition: all .1s;
     background-image: url("https://art.pixilart.com/6d5f49bda3b5069.png");
     filter: opacity(1);
+    color: #ff000050;
+    font-size: 5px;
 }
 
 .game__land:hover {
