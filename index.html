@@ -11,6 +11,7 @@
 <body>
     <nav class="nav">
         <ul>
+            <h2>Items</h2>
             <li class="action" data-action="none">Null</li>
             <li class="action" data-action="grass">Grass</li>
             <li class="action" data-action="dirt">Dirt</li>
@@ -20,11 +21,27 @@
             <li class="action" data-action="brick">Brick</li>
             <li class="action" data-action="water">Water</li>
             <li class="action" data-action="tree">Tree</li>
-            
+            <h2>Share</h2>
+            <li class="options" data-for="save">
+                Save
+            </li>
+            <li id="save" class="hidden">
+                    <textarea id="savetextarea" cols="30" rows="10" placeholder="There should be exported project in JSON"></textarea>
+            </li>
+
+            <li class="options" data-for="load">
+                Load
+            </li>
+            <li id="load" class="hidden">
+                    <form>
+                        <button type="button" onclick="fields=JSON.parse(document.getElementById('loadtextarea').value); render('all');" id="loadfields">Load &rarr;</button>
+                    </form>
+                    <textarea id="loadtextarea" cols="30" rows="10" placeholder="Paste JSON here to load your lands"></textarea>
+            </li>
         </ul>
     </nav>
     <header class="header">
-        <h1>Plz make game from it :D</h1>
+        <h1>Game template</h1>
     </header>
     <main id="gamewrapper">
 
@@ -34,6 +51,7 @@
 <script>
     generate("classic");
     render("all");
+    listen("options");
     listen("landsclick");
     listen("actionclick");
 </script>

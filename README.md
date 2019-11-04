@@ -1,2 +1,2 @@
 # lands
- Script which will allow you  to create and edit game raster 
+ Script which will allow you  to create game like Clash Of Clans

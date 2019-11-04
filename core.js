@@ -77,6 +77,8 @@ var fields = [];
                 fields.push(fieldrow)
             }
 
+        } else if (type == "json") {
+            fields = type;
         }
 
 
@@ -127,14 +129,14 @@ var fields = [];
 
 
                             if(land.classList.contains("obj_" + action)) {
-                                land.classList.remove("obj_" + action);
+                                //land.classList.remove("obj_" + action);
                                 field.content = "grass";
                             } else {
                                 for(qq = 0; qq < actions.length; qq++) {
-                                    land.classList.remove("obj_" + actions[qq].dataset.action);
+                                    //land.classList.remove("obj_" + actions[qq].dataset.action);
                                     field.content = "grass";
                                 }
-                                land.classList.add("obj_" + action);
+                                //land.classList.add("obj_" + action);
                                 field.content = action;
                             }
                         
@@ -145,7 +147,7 @@ var fields = [];
                 });
             }
 
-        } else if (what = "actionclick") {
+        } else if (what == "actionclick") {
 
             for(pp = 0; pp < actions.length; pp++) {
                 thisaction = actions[pp];
@@ -157,5 +159,23 @@ var fields = [];
 
             }
 
+        } else if (what == "options") {
+
+            var options = document.getElementsByClassName("options");
+
+            for(aaa = 0; aaa < options.length; aaa++) {
+                let option = options[aaa];
+                option.addEventListener("click", function(event) {
+                    let option = event.path[0].dataset.for;
+                    document.getElementById(option).classList.toggle("shown");
+                    if(option == "save") {
+                        document.getElementById(option + "textarea").innerHTML = JSON.stringify(fields);
+                    }
+                });
+            }
         }
+    }
+
+    function exportFields() {
+        return JSON.stringify(fields);
     }

@@ -15,6 +15,18 @@ body {
     left: 0;
 }
 
+.nav > * {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.shown {
+    display: block;
+}
+
 .game {
     display: flex;
     flex-direction: column;
