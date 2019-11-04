@@ -14,14 +14,14 @@ var fields = [];
 
         if(type == "blank") {
             fields = [];
-            for(i = 0; i < amount_y; i++) {
+            for(i = 0; i < amount_x; i++) {
                 var fieldrow = [];
-                for(j = 0; j < amount_x; j++) {
+                for(j = 0; j < amount_y; j++) {
                     var field = {};
-                    field.x = j;
-                    field.y = i;
+                    field.x = i;
+                    field.y = j;
                     field.content = "none";
-                    field.state = "locked";
+                    field.state = "unlocked";
         
                     fieldrow.push(field);
 
@@ -32,12 +32,12 @@ var fields = [];
 
         } else if (type == "classic") {
             fields = [];
-            for(i = 0; i < amount_y; i++) {
+            for(i = 0; i < amount_x; i++) {
                 var fieldrow = [];
-                for(j = 0; j < amount_x; j++) {
+                for(j = 0; j < amount_y; j++) {
                     var field = {};
-                    field.x = j;
-                    field.y = i;
+                    field.x = i;
+                    field.y = j;
                     field.content = ((Math.floor(Math.random() * (+300 - 1)) + 1) == 1) ? "stone" : "grass";
                     if((field.x == 0)||(field.x == (amount_x)-1)||(field.y == 0)||(field.y == (amount_y)-1)) {
                         field.state = "locked";
@@ -61,14 +61,14 @@ var fields = [];
 
         } else if (type == "experimental") {
             fields = [];
-            for(i = 0; i < amount_y; i++) {
+            for(i = 0; i < amount_x; i++) {
                 var fieldrow = [];
-                for(j = 0; j < amount_x; j++) {
+                for(j = 0; j < amount_y; j++) {
                     var field = {};
-                    field.x = j;
-                    field.y = i;
+                    field.x = i;
+                    field.y = j;
                     field.content = ((Math.floor(Math.random() * (+30 - 1)) + 1) == 1) ? "dirt" : "grass";
-                    field.state = "locked";
+                    field.state = "unlocked";
         
                     fieldrow.push(field);
 
@@ -95,10 +95,10 @@ var fields = [];
 
                 for(jj = 0; jj < fields[ii].length; jj++) {
                     var field = document.createElement("div");
-                    field.dataset.x = fields[ii][jj].x;
-                    field.dataset.y = fields[ii][jj].y;
+                    field.dataset.x = fields[jj][ii].x;
+                    field.dataset.y = fields[jj][ii].y;
                     field.classList.add("game__land");
-                    field.classList.add("obj_" + fields[ii][jj].content);
+                    field.classList.add("obj_" + fields[jj][ii].content);
 
                     fieldrow.appendChild(field);
                 }
@@ -123,20 +123,17 @@ var fields = [];
                     let x = land.dataset.x;
                     let y = land.dataset.y;
 
-                    field = fields[y][x];
+                    field = fields[x][y];
 
-                    if(!((field.x == 0)||(field.x == (amount_x)-1)||(field.y == 0)||(field.y == (amount_y)-1))) {
+                    if(!(field.state == "locked")) {
 
 
                             if(land.classList.contains("obj_" + action)) {
-                                //land.classList.remove("obj_" + action);
                                 field.content = "grass";
                             } else {
                                 for(qq = 0; qq < actions.length; qq++) {
-                                    //land.classList.remove("obj_" + actions[qq].dataset.action);
                                     field.content = "grass";
                                 }
-                                //land.classList.add("obj_" + action);
                                 field.content = action;
                             }
                         
