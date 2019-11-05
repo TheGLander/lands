@@ -8,6 +8,17 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="lands.css">
+    <script>
+            window.onload = function (evt) {
+                var field = new Field("action", "gamewrapper", "game__land", "tree", "game");
+                field.generate("classic", 5, 5);
+                field.render("all");
+                field.listen("options");
+                field.listen("landsclick");
+                field.listen("actionclick");
+                field.listen("loadbutton", "loadbutton");
+            }
+    </script>
 </head>
 <body>
     <nav class="nav abs_left">
@@ -35,7 +46,7 @@
             </li>
             <li id="load" class="hidden">
                     <form>
-                        <button type="button" onclick="fields=JSON.parse(document.getElementById('loadtextarea').value); field.render('all');" id="loadfields">Load &rarr;</button>
+                        <button class="loadbutton" type="button" id="loadfields">Load &rarr;</button>
                     </form>
                     <textarea id="loadtextarea" cols="30" rows="10" placeholder="Paste JSON here to load your lands"></textarea>
             </li>
@@ -59,12 +70,4 @@
     </main>
 </body>
 <script src="core.js"></script>
-<script>
-    var field = new Field(10,10);
-    field.generate("classic");
-    field.render("all");
-    field.listen("options");
-    field.listen("landsclick");
-    field.listen("actionclick");
-</script>
 </html>

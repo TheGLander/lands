@@ -1,28 +1,23 @@
-var action = "tree";
-var lands = document.getElementsByClassName('game__land');
-var actions = document.getElementsByClassName("action");
-var gamewrapper = document.getElementById("gamewrapper");
-var body = document.getElementsByTagName("body");
-var game = document.createElement("div");
-game.classList.add("game");
-
 var fields = [];
-
 class Field {
 
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
+    constructor(actionelems, gamewrapper, lands, action, gameclass) {
+        this.action = action;
+        var gamewrapper = document.getElementById(gamewrapper);
+        this.lands = document.getElementsByClassName(lands);
+        this.actions = document.getElementsByClassName(actionelems);
+        this.game = document.createElement("div");
+        this.game.classList.add(gameclass);
     }
 
     
-    generate (type) {
+    generate (type, x, y) {
 
         if(type == "blank") {
             fields = [];
-            for(i = 0; i < this.x; i++) {
+            for(i = 0; i < x; i++) {
                 var fieldrow = [];
-                for(j = 0; j < this.y; j++) {
+                for(j = 0; j < y; j++) {
                     var field = {};
                     field.x = i;
                     field.y = j;
@@ -38,14 +33,14 @@ class Field {
 
         } else if (type == "classic") {
             fields = [];
-            for(let i = 0; i < this.x; i++) {
+            for(let i = 0; i < x; i++) {
                 var fieldrow = [];
-                for(let j = 0; j < this.y; j++) {
+                for(let j = 0; j < y; j++) {
                     var field = {};
                     field.x = i;
                     field.y = j;
                     field.content = ((Math.floor(Math.random() * (+300 - 1)) + 1) == 1) ? "stone" : "grass";
-                    if((field.x == 0)||(field.x == (this.x)-1)||(field.y == 0)||(field.y == (this.y)-1)) {
+                    if((field.x == 0)||(field.x == (x)-1)||(field.y == 0)||(field.y == (y)-1)) {
                         field.state = "locked";
                         field.content = ((Math.floor(Math.random() * (+10 - 1)) + 1) == 1) ? "stone" : "grass";
                         if(field.content == "grass") {
@@ -67,10 +62,10 @@ class Field {
 
         } else if (type == "experimental") {
             fields = [];
-            for(i = 0; i < this.x; i++) {
-                var fieldrow = [];
-                for(j = 0; j < this.y; j++) {
-                    var field = {};
+            for(i = 0; i < x; i++) {
+                let fieldrow = [];
+                for(j = 0; j < y; j++) {
+                    let field = {};
                     field.x = i;
                     field.y = j;
                     field.content = ((Math.floor(Math.random() * (+30 - 1)) + 1) == 1) ? "dirt" : "grass";
@@ -92,7 +87,7 @@ class Field {
 
     render (what) {
         if(what == "all") {
-            game.innerHTML = "";
+            this.game.innerHTML = "";
             for(let ii = 0; ii < fields.length; ii++) {
 
                 let fieldrow = document.createElement("div");
@@ -108,36 +103,36 @@ class Field {
                     fieldrow.appendChild(field);
                 }
 
-                game.appendChild(fieldrow);
+                this.game.appendChild(fieldrow);
             }
         }
         gamewrapper.innerHTML = "";
-        gamewrapper.appendChild(game);
+        gamewrapper.appendChild(this.game);
     }
 
-    listen (what) {
+    listen (what, elem) {
 
         if(what == "landsclick") {
 
-            for (let oo = 0; oo < lands.length;  oo++) {
-                let land = lands[oo];
-    
-                land.addEventListener("click", function() {
+            for (let oo = 0; oo < this.lands.length;  oo++) {
+                let land = this.lands[oo];
+
+                land.addEventListener("click", (e) => {
                     let x = land.dataset.x;
                     let y = land.dataset.y;
 
-                    field = fields[x][y];
+                    let field = fields[x][y];
 
                     if(!(field.state == "locked")) {
 
 
-                            if(land.classList.contains("obj_" + action)) {
+                            if(land.classList.contains("obj_" + this.action)) {
                                 field.content = "grass";
                             } else {
-                                for(let qq = 0; qq < actions.length; qq++) {
+                                for(let qq = 0; qq < this.actions.length; qq++) {
                                     field.content = "grass";
                                 }
-                                field.content = action;
+                                field.content = this.action;
                             }
                         
 
@@ -150,11 +145,11 @@ class Field {
 
         } else if (what == "actionclick") {
 
-            for(let pp = 0; pp < actions.length; pp++) {
-                let thisaction = actions[pp];
+            for(let pp = 0; pp < this.actions.length; pp++) {
+                let thisaction = this.actions[pp];
 
-                thisaction.addEventListener("click", function(event) {
-                    action = event.path[0].dataset.action;
+                thisaction.addEventListener("click", (e) => {
+                    this.action = e.path[0].dataset.action;
                 });
 
 
@@ -166,7 +161,7 @@ class Field {
 
             for(let aaa = 0; aaa < options.length; aaa++) {
                 let option = options[aaa];
-                option.addEventListener("click", function(event) {
+                option.addEventListener("click", (event) => {
                     let option = event.path[0].dataset.for;
                     document.getElementById(option).classList.toggle("shown");
                     if(option == "save") {
@@ -174,8 +169,20 @@ class Field {
                     }
                 });
             }
+
+        } else if (what == "loadbutton") {
+            let loadbutton = document.getElementsByClassName(elem);
+            for(let i = 0; i < loadbutton.length; i++) {
+                loadbutton = loadbutton[i];
+                loadbutton.addEventListener("click", (event) => {
+                    fields = JSON.parse(document.getElementById("loadtextarea").value);
+                    this.render("all");
+                    this.listen("landsclick");
+                });
+            }
         }
     }
+
 
 
 
