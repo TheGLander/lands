@@ -1,5 +1,3 @@
-var amount_x = 15;
-var amount_y = 15;
 var action = "tree";
 var lands = document.getElementsByClassName('game__land');
 var actions = document.getElementsByClassName("action");
@@ -10,13 +8,21 @@ game.classList.add("game");
 
 var fields = [];
 
-    function generate(type) {
+class Field {
+
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    
+    generate (type) {
 
         if(type == "blank") {
             fields = [];
-            for(i = 0; i < amount_x; i++) {
+            for(i = 0; i < this.x; i++) {
                 var fieldrow = [];
-                for(j = 0; j < amount_y; j++) {
+                for(j = 0; j < this.y; j++) {
                     var field = {};
                     field.x = i;
                     field.y = j;
@@ -32,14 +38,14 @@ var fields = [];
 
         } else if (type == "classic") {
             fields = [];
-            for(i = 0; i < amount_x; i++) {
+            for(let i = 0; i < this.x; i++) {
                 var fieldrow = [];
-                for(j = 0; j < amount_y; j++) {
+                for(let j = 0; j < this.y; j++) {
                     var field = {};
                     field.x = i;
                     field.y = j;
                     field.content = ((Math.floor(Math.random() * (+300 - 1)) + 1) == 1) ? "stone" : "grass";
-                    if((field.x == 0)||(field.x == (amount_x)-1)||(field.y == 0)||(field.y == (amount_y)-1)) {
+                    if((field.x == 0)||(field.x == (this.x)-1)||(field.y == 0)||(field.y == (this.y)-1)) {
                         field.state = "locked";
                         field.content = ((Math.floor(Math.random() * (+10 - 1)) + 1) == 1) ? "stone" : "grass";
                         if(field.content == "grass") {
@@ -61,9 +67,9 @@ var fields = [];
 
         } else if (type == "experimental") {
             fields = [];
-            for(i = 0; i < amount_x; i++) {
+            for(i = 0; i < this.x; i++) {
                 var fieldrow = [];
-                for(j = 0; j < amount_y; j++) {
+                for(j = 0; j < this.y; j++) {
                     var field = {};
                     field.x = i;
                     field.y = j;
@@ -84,17 +90,16 @@ var fields = [];
 
     }
 
-
-    function render(what) {
+    render (what) {
         if(what == "all") {
             game.innerHTML = "";
-            for(ii = 0; ii < fields.length; ii++) {
+            for(let ii = 0; ii < fields.length; ii++) {
 
-                var fieldrow = document.createElement("div");
+                let fieldrow = document.createElement("div");
                 fieldrow.classList.add("game__row");
 
-                for(jj = 0; jj < fields[ii].length; jj++) {
-                    var field = document.createElement("div");
+                for(let jj = 0; jj < fields[ii].length; jj++) {
+                    let field = document.createElement("div");
                     field.dataset.x = fields[ii][jj].x;
                     field.dataset.y = fields[ii][jj].y;
                     field.classList.add("game__land");
@@ -108,15 +113,13 @@ var fields = [];
         }
         gamewrapper.innerHTML = "";
         gamewrapper.appendChild(game);
-
-        listen("landsclick");
     }
 
-    function listen (what) {
+    listen (what) {
 
         if(what == "landsclick") {
 
-            for (var oo = 0; oo < lands.length;  oo++) {
+            for (let oo = 0; oo < lands.length;  oo++) {
                 let land = lands[oo];
     
                 land.addEventListener("click", function() {
@@ -131,14 +134,15 @@ var fields = [];
                             if(land.classList.contains("obj_" + action)) {
                                 field.content = "grass";
                             } else {
-                                for(qq = 0; qq < actions.length; qq++) {
+                                for(let qq = 0; qq < actions.length; qq++) {
                                     field.content = "grass";
                                 }
                                 field.content = action;
                             }
                         
 
-                        render("all");
+                        this.render("all");
+                        this.listen("landsclick");
 
                     }
                 });
@@ -146,8 +150,8 @@ var fields = [];
 
         } else if (what == "actionclick") {
 
-            for(pp = 0; pp < actions.length; pp++) {
-                thisaction = actions[pp];
+            for(let pp = 0; pp < actions.length; pp++) {
+                let thisaction = actions[pp];
 
                 thisaction.addEventListener("click", function(event) {
                     action = event.path[0].dataset.action;
@@ -160,7 +164,7 @@ var fields = [];
 
             var options = document.getElementsByClassName("options");
 
-            for(aaa = 0; aaa < options.length; aaa++) {
+            for(let aaa = 0; aaa < options.length; aaa++) {
                 let option = options[aaa];
                 option.addEventListener("click", function(event) {
                     let option = event.path[0].dataset.for;
@@ -172,3 +176,8 @@ var fields = [];
             }
         }
     }
+
+
+
+
+}

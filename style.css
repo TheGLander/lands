@@ -10,9 +10,21 @@ body {
 }
 
 .nav {
-    position: absolute;
     top: 0;
+    position: absolute;
+}
+
+.abs_left {
     left: 0;
+}
+
+.abs_right {
+    right: 0;
+}
+
+.abs_right > ul {
+    padding-inline-start: 0;
+    padding-inline-end: 40px;
 }
 
 .nav > * {

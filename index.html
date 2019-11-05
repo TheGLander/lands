@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="lands.css">
 </head>
 <body>
-    <nav class="nav">
+    <nav class="nav abs_left">
         <ul>
             <h2>Items</h2>
             <li class="action" data-action="none">Null</li>
@@ -35,14 +35,24 @@
             </li>
             <li id="load" class="hidden">
                     <form>
-                        <button type="button" onclick="fields=JSON.parse(document.getElementById('loadtextarea').value); render('all');" id="loadfields">Load &rarr;</button>
+                        <button type="button" onclick="fields=JSON.parse(document.getElementById('loadtextarea').value); field.render('all');" id="loadfields">Load &rarr;</button>
                     </form>
                     <textarea id="loadtextarea" cols="30" rows="10" placeholder="Paste JSON here to load your lands"></textarea>
             </li>
         </ul>
     </nav>
+    <nav class="nav abs_right">
+        <ul>
+            <h2>Generate</h2>
+            <li>
+                <form>
+                    Comming soon
+                </form>
+            </li>
+        </ul>
+    </nav>
     <header class="header">
-        <h1>Game template</h1>
+        <h1>The Fields</h1>
     </header>
     <main id="gamewrapper">
 
@@ -50,10 +60,11 @@
 </body>
 <script src="core.js"></script>
 <script>
-    generate("classic");
-    render("all");
-    listen("options");
-    listen("landsclick");
-    listen("actionclick");
+    var field = new Field(10,10);
+    field.generate("classic");
+    field.render("all");
+    field.listen("options");
+    field.listen("landsclick");
+    field.listen("actionclick");
 </script>
 </html>
