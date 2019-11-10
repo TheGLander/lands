@@ -11,16 +11,16 @@ class Field {
     }
 
     
-    generate (type, x, y) {
+    generate (type, maxx, maxy) {
 
         if(type == "blank") {
             fields = [];
-            for(i = 0; i < x; i++) {
+            for(let x = 0; x < maxx; i++) {
                 var fieldrow = [];
-                for(j = 0; j < y; j++) {
+                for(let y = 0; y < maxy; y++) {
                     var field = {};
-                    field.x = i;
-                    field.y = j;
+                    field.x = x;
+                    field.y = y;
                     field.content = "none";
                     field.state = "unlocked";
         
@@ -33,14 +33,14 @@ class Field {
 
         } else if (type == "classic") {
             fields = [];
-            for(let i = 0; i < x; i++) {
+            for(let x = 0; x < maxx; x++) {
                 var fieldrow = [];
-                for(let j = 0; j < y; j++) {
+                for(let y = 0; y < maxy; y++) {
                     var field = {};
-                    field.x = i;
-                    field.y = j;
+                    field.x = x;
+                    field.y = y;
                     field.content = ((Math.floor(Math.random() * (+300 - 1)) + 1) == 1) ? "stone" : "grass";
-                    if((field.x == 0)||(field.x == (x)-1)||(field.y == 0)||(field.y == (y)-1)) {
+                    if((field.x == 0)||(field.x == (maxx)-1)||(field.y == 0)||(field.y == (maxy)-1)) {
                         field.state = "locked";
                         field.content = ((Math.floor(Math.random() * (+10 - 1)) + 1) == 1) ? "stone" : "grass";
                         if(field.content == "grass") {
@@ -60,25 +60,8 @@ class Field {
                 fields.push(fieldrow);
             }
 
-        } else if (type == "experimental") {
-            fields = [];
-            for(i = 0; i < x; i++) {
-                let fieldrow = [];
-                for(j = 0; j < y; j++) {
-                    let field = {};
-                    field.x = i;
-                    field.y = j;
-                    field.content = ((Math.floor(Math.random() * (+30 - 1)) + 1) == 1) ? "dirt" : "grass";
-                    field.state = "unlocked";
-        
-                    fieldrow.push(field);
-
-                }
-        
-                fields.push(fieldrow)
-            }
-
-        } else if (type == "json") {
+        }
+        else if (type == "json") {
             fields = type;
         }
 
@@ -88,17 +71,17 @@ class Field {
     render (what) {
         if(what == "all") {
             this.game.innerHTML = "";
-            for(let ii = 0; ii < fields.length; ii++) {
+            for(let x = 0; x < fields.length; x++) {
 
                 let fieldrow = document.createElement("div");
                 fieldrow.classList.add("game__row");
 
-                for(let jj = 0; jj < fields[ii].length; jj++) {
+                for(let y = 0; y < fields[x].length; y++) {
                     let field = document.createElement("div");
-                    field.dataset.x = fields[ii][jj].x;
-                    field.dataset.y = fields[ii][jj].y;
+                    field.dataset.x = fields[x][y].x;
+                    field.dataset.y = fields[x][y].y;
                     field.classList.add("game__land");
-                    field.classList.add("obj_" + fields[ii][jj].content);
+                    field.classList.add("obj_" + fields[x][y].content);
 
                     fieldrow.appendChild(field);
                 }
@@ -114,8 +97,8 @@ class Field {
 
         if(what == "landsclick") {
 
-            for (let oo = 0; oo < this.lands.length;  oo++) {
-                let land = this.lands[oo];
+            for (let l = 0; l < this.lands.length;  l++) {
+                let land = this.lands[l];
 
                 land.addEventListener("click", (e) => {
                     let x = land.dataset.x;
@@ -129,7 +112,7 @@ class Field {
                             if(land.classList.contains("obj_" + this.action)) {
                                 field.content = "grass";
                             } else {
-                                for(let qq = 0; qq < this.actions.length; qq++) {
+                                for(let k = 0; k < this.actions.length; k++) {
                                     field.content = "grass";
                                 }
                                 field.content = this.action;
